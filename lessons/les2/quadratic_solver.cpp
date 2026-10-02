@@ -32,11 +32,11 @@ void solver1(double a,double b,double c,double& x1,double& x2){
 void solver2(double a,double b,double c,double& x1,double& x2){
     double Delta = b*b-4*a*c;
     if(b>=0){
-        x1 = (-b-sqrt(Delta))/(2*a);
-        x2 = 2*c/(-b-sqrt(Delta));
+        x2 = (-b-sqrt(Delta))/(2*a);
+        x1 = 2*c/(-b-sqrt(Delta));
     }
     else if(b<0){
-        x1 = 2*c/(-b+sqrt(Delta));
-        x2 = (-b+sqrt(Delta))/(2*a);
+        x2 = 2*c/(-b+sqrt(Delta));
+        x1 = (-b+sqrt(Delta))/(2*a);
     }
 }   
