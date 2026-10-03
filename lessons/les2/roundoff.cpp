@@ -12,7 +12,6 @@ int main(){
         std::cout<<sqrt(x*x+1)-x;
         std::cout<<"\tration.: ";
         std::cout<< 1./(sqrt(x*x+1)+x);
-        //std::cout<<std::endl;
         std::cout<<"\ttaylor (2nd): ";
         std::cout<< 0.5/x;
         std::cout<<std::endl;
@@ -27,7 +26,6 @@ int main(){
         std::cout<<1.-cos(y);
         std::cout<<"\tration.: ";
         std::cout<< sin(y)*sin(y)/(1+cos(y));
-        //std::cout<<std::endl;
         std::cout<<"\ttaylor (2nd): ";
         std::cout<< y*y/2.-y*y*y*y/(2.*3.*4.);
         std::cout<<std::endl;
