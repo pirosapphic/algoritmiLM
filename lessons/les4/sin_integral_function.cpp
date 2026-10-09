@@ -14,8 +14,15 @@ int main(){
     int Npoints = (xmax-xmin)/dx;
     double N = 10; //number of intervals
     double Ng = 3; //number of gaussian points
+    std::ofstream fdata;
+    fdata.open("Si_plot.dat");
+    fdata << "# Data for the plot of Si(x) in [0,25]"<<std::endl;
     for(int i = 0; i < Npoints; i++){
-        double y = GaussianIntegration(f1,xmin,xmin+i*dx,N,Ng);
+        double x = xmin+i*dx;
+        double y = GaussianIntegrator(f1,xmin,x,N,Ng);
+        fdata<< x << "  "<<y<<std::endl;
+    }
+    return 0;
 }
 
 
