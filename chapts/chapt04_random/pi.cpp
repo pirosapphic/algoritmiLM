@@ -10,8 +10,6 @@ int main(){
     int N = 0;
     std::cout << "Number of points: ";
     std::cin >> N;
-    std::ofstream data1; //for error data
-    std::ofstream data2; //for the hit-miss plot
     //data.open("pi.dat");
     //data << "#hit or miss method for pi"<<std::endl<<"#x    y"<<std::endl;
     int hit = 0;
@@ -26,6 +24,8 @@ int main(){
     std::cout << "Value of pi = "<<M_PI<<std::endl;
     //data.close();
     //we now search for the value of N which yields a relative error < tol
+    std::ofstream data1; //for error data
+    std::ofstream data2; //for the hit-miss plot
     double tol = 1.e-4;
     data1.open("pi_err.dat");
     data1 << "#Estimates of pi with hit or miss: errors"<<std::endl;
