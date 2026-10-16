@@ -1,7 +1,7 @@
 #include<iostream>
 #include<iomanip>
 #include<cmath>
-#include"integrators.h"
+#include"../../lib/integrators.h"
 
 double f1(double x){
     return exp(-x);
@@ -19,13 +19,13 @@ int main(){
     double exact = 1.-std::exp(-1.);
     std::cout<<"The exact result of int_0^1(e^-x)dx is "<<
         exact<<std::endl;
-    double result_rect = rectangle_rule(f1,a,b,N);
+    double result_rect = rectangleIntegrator(f1,a,b,N);
     std::cout<<"The result of int_0^1(e^-x)dx using the rectangle rule (N="<<N
         <<") is "<<result_rect<<std::endl;
-    double result_trap = trapezoid_rule(f1,a,b,N);
+    double result_trap = trapezoidIntegrator(f1,a,b,N);
     std::cout<<"The result of int_0^1(e^-x)dx using the trapezoidal rule (N=4)"
         <<"is "<<result_trap<<std::endl;
-    double result_simp = simpson_rule(f1,a,b,N);
+    double result_simp = simpsonIntegrator(f1,a,b,N);
     std::cout<<"The result of int_0^1(e^-x)dx using the simpson rule (N=4) is "
         <<result_simp<<std::endl;
     //now we test convergence
@@ -40,7 +40,7 @@ int main(){
     I_0=0.;
     M=2;
     while(1){
-        I = rectangle_rule(f1,a,b,M);
+        I = rectangleIntegrator(f1,a,b,M);
         err = fabs(I-I_0);
         if (err < tol) break;
         I_0=I;
@@ -51,7 +51,7 @@ int main(){
     I_0=0.;
     M=2;
     while(1){
-        I = trapezoid_rule(f1,a,b,M);
+        I = trapezoidIntegrator(f1,a,b,M);
         err = fabs(I-I_0);
         if (err < tol) break;
         I_0=I;
@@ -62,7 +62,7 @@ int main(){
     I_0=0.;
     M=2;
     while(1){
-        I = simpson_rule(f1,a,b,M);
+        I = simpsonIntegrator(f1,a,b,M);
         err = fabs(I-I_0);
         if (err < tol) break;
         I_0=I;

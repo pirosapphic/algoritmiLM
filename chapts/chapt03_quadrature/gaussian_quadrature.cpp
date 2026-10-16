@@ -1,7 +1,7 @@
 #include<iostream>
 #include<iomanip>
 #include<cmath>
-#include"integrators.h"
+#include"../../lib/integrators.h"
 
 double f1(double);
 double f2(double);
@@ -13,14 +13,14 @@ int main(){
     int Ng = 3;
     double a = 0; //extrema
     double b = 3;
-    double simpson = SimpsonIntegrator(f1,a,b,Ns);
-    double gauss = GaussianIntegrator(f1,a,b,N,Ng);
+    double simpson = simpsonIntegrator(f1,a,b,Ns);
+    double gauss = gaussianIntegrator(f1,a,b,N,Ng);
     std::cout<<"Integral of sqrt(1+x)"<<std::endl;
     std::cout << "Simpson: "<<simpson<<"\tGaussian: "<<gauss<<std::endl;
     a = -1;
     b = 5;
-    simpson = SimpsonIntegrator(f2,a,b,Ns);
-    gauss = GaussianIntegrator(f2,a,b,N,Ng);
+    simpson = simpsonIntegrator(f2,a,b,Ns);
+    gauss = gaussianIntegrator(f2,a,b,N,Ng);
     std::cout<<"Integral of polynomial"<<std::endl;
     std::cout << "Simpson: "<<simpson<<"\tGaussian: "<<gauss<<std::endl;
 }
