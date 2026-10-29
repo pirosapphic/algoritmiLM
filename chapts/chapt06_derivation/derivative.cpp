@@ -16,13 +16,13 @@ int main(){
     data << "#derivative errors data"<<std::endl<<
         "# 1/h    forward     backward    central     fourth"<<std::endl;
     for(int i = 0; i < 10; i++){
-        double fd = forwardDiff(f,x,h);
+        double fd = forwardFirstDer(f,x,h);
         fd = fabs(fd-reald);
-        double bd = backwardDiff(f,x,h);
+        double bd = backwardFirstDer(f,x,h);
         bd = fabs(bd-reald);
-        double cd = centralDiff(f,x,h);
+        double cd = centralFirstDer(f,x,h);
         cd = fabs(cd-reald);
-        double hd = fourthOrderDiff(f,x,h);
+        double hd = fourthOrderFirstDer(f,x,h);
         hd = fabs(hd-reald);
 
         data<<1./h<<" "<<fd<<" "<<bd<<" "<<cd<<" "<<hd<<std::endl;

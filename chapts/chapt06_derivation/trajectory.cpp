@@ -22,18 +22,18 @@ int main(){
     for(int i = 0; i < Npoints+1; i++){
         if( i==0 ){//problematic function in x=0, so the left 
             x[i]=x_function(i*dt);
-            v[i]=forwardDiff(x_function, i*dt, dt);     
+            v[i]=forwardFirstDer(x_function, i*dt, dt);     
             a[i]=forwardSecondDer(x_function,i*dt,dt);
         }
         else if( i == Npoints+1 ){//for principle, since x(t) might not be defined
                                   //outside of [t_0,t_f]
             x[i]=x_function(i*dt);
-            v[i]=backwardDiff(x_function,i*dt,dt);
+            v[i]=backwardFirstDer(x_function,i*dt,dt);
             a[i]=backwardSecondDer(x_function, i*dt, dt);
         }
         else{
             x[i] = x_function(i*dt);
-            v[i] = centralDiff(x_function, i*dt, dt);
+            v[i] = centralFirstDer(x_function, i*dt, dt);
             a[i] = centralSecondDer(x_function, i*dt, dt);
         }
         data << i*dt <<"  "<< x[i]<<"  "<<v[i]<<"  "<<a[i]<<std::endl;

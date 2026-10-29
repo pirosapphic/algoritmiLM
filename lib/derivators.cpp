@@ -1,6 +1,6 @@
 #include"derivators.h"
 
-double forwardDiff(double (*func)(double), double x, double h){
+double forwardFirstDer(double (*func)(double), double x, double h){
     //computes the derivative of func at point x, with the forward difference
     //method
     double f1 = func(x+h);
@@ -8,7 +8,7 @@ double forwardDiff(double (*func)(double), double x, double h){
     return (double)(f1-f2)/h;
 }
 
-double backwardDiff(double (*func)(double), double x, double h){
+double backwardFirstDer(double (*func)(double), double x, double h){
     //computes the derivative of func at point x, with the forward difference
     //method
     double f1 = func(x);
@@ -16,7 +16,7 @@ double backwardDiff(double (*func)(double), double x, double h){
     return (double)(f1-f2)/h;
 }
 
-double centralDiff(double (*func)(double), double x, double h){
+double centralFirstDer(double (*func)(double), double x, double h){
     //computes the derivative of func at point x, with the forward difference
     //method
     double f1 = func(x+h);
@@ -24,7 +24,7 @@ double centralDiff(double (*func)(double), double x, double h){
     return (double)(f1-f2)/2./h;
 }
 
-double fourthOrderDiff(double (*func)(double), double x, double h){
+double fourthOrderFirstDer(double (*func)(double), double x, double h){
     //computes the derivative of func at point x, with the forward difference
     //method
     double f1 = func(x-h-h);
