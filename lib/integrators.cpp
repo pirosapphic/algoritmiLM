@@ -1,5 +1,6 @@
 #include "integrators.h"
 double rectangleIntegrator(double (*func)(double), double a, double b, int N){
+    //simple rectangle integrator
     double h = (b-a)/N; //this is the width of the rectangle
     double sum = 0;
     for(int i = 0; i < N; i++){
@@ -10,6 +11,7 @@ double rectangleIntegrator(double (*func)(double), double a, double b, int N){
 }
 
 double trapezoidIntegrator(double (*func)(double), double a, double b, int N){
+    //integrator with the trapezoid method
     double h = (b-a)/N; //this is the width of the rectangle
     double sum = (func(a)+func(b))*0.5;
     for(int i = 1; i < N; i++){
@@ -20,6 +22,7 @@ double trapezoidIntegrator(double (*func)(double), double a, double b, int N){
 }
 
 double simpsonIntegrator(double (*func)(double),double a, double b, int N){
+    //simpson's rule of integration, N must be even
     double h = (double)(b-a)/N; //this is the width of the rectangle
     double sum = func(a)+func(b);
     double w = 4.0;
@@ -32,7 +35,9 @@ double simpsonIntegrator(double (*func)(double),double a, double b, int N){
     return sum*h/3.0;
 }
 
-double gaussianIntegrator(double (*func)(double),double a, double b, int N, int Ng){
+double gaussianIntegrator(double (*func)(double),double a, double b,
+        int N, int Ng){
+    //Gaussian integrator, with Legendre polynomials up to order Ng=5
     double xi[5];
     double wi[5];
     //we first define the zeros of the Legendre polynomials and their weights
@@ -69,6 +74,43 @@ double gaussianIntegrator(double (*func)(double),double a, double b, int N, int 
         wi[3]=(322.-13.*sqrt(70.))/900.;
         wi[4]=(322.-13.*sqrt(70.))/900.;
     }
+    else if(Ng == 6){//from chap05_roots/legendre.out
+        xi[0]=-0.932469514203;
+        xi[1]=-0.661209386466;
+        xi[2]=-0.238619186083;
+        xi[3]=0.238619186083;
+        xi[4]=0.661209386466;
+        xi[5]=0.932469514203;
+
+        wi[0]=0.171324492379;
+        wi[1]=0.360761573048;
+        wi[2]=0.467913934573;
+        wi[3]=0.467913934573;
+        wi[4]=0.360761573048;
+        wi[5]=0.171324492379;
+    }
+    else if(Ng == 7){//from chap05_roots/legendre.out
+        xi[0]=-0.949107912343;
+        xi[1]=-0.741531185599;
+        xi[2]=-0.405845151377;
+        xi[3]=0;
+        xi[4]=0.405845151377;
+        xi[5]=0.741531185599;
+        xi[6]=0.949107912343;
+
+        wi[0]=0.129484966169;
+        wi[1]=0.279705391489;
+        wi[2]=0.381830050505;
+        wi[3]=0.417959183673;
+        wi[4]=0.381830050505;
+        wi[5]=0.279705391489;
+        wi[6]=0.129484966169;
+    }
+    else if (Ng > 7){
+        std::cout << "gaussianIntegrator() error: roots and weights for Ng = "
+            <<Ng<<" are not defined. Returning 666."<<std::endl;
+        return 666.;
+    }
     //This is where the fun begins
     //We subdivide the integration interval in N intervals
     double sum,sumk,xc,dx;
@@ -78,7 +120,7 @@ double gaussianIntegrator(double (*func)(double),double a, double b, int N, int 
         xc = a+ (i + 0.5)*dx;   //centre of the interval
         sumk = 0.;              //initialising the sum for each interval
         for(int k = 0; k < Ng; k++){
-            sumk += wi[k]*func(0.5*dx*xi[k]+xc); //gaussian integration, with
+            sumk += wi[k]*func(0.5*dx*xi[k]+xc); //Gaussian integration, with
         }                                        //the variable
                                                  //transformation
         sum += 0.5*dx*sumk;                      //[a,b]->[-1,1]
@@ -95,12 +137,20 @@ double gaussianIntegrator2D(double (*func)(double,double),double ax,double bx,
     double xi[5];
     double wi[5];
     if(Ng == 2){
-        xi[0] = -sqrt(1./3.); xi[1]=sqrt(1./3.);
-        wi[0] = 1.;           wi[1]=1.;
+        xi[0] = -sqrt(1./3.);
+        xi[1]=sqrt(1./3.);
+
+        wi[0] = 1.;
+        wi[1]=1.;
     }
     else if(Ng == 3){
-        xi[0] = -sqrt(0.6);xi[1]=0.;     xi[2]=sqrt(0.6);
-        wi[0] = 5./9.;     wi[1]=8./9.;  wi[2]=5./9.;
+        xi[0] = -sqrt(0.6);
+        xi[1]=0.;
+        xi[2]=sqrt(0.6);
+        
+        wi[0] = 5./9.;
+        wi[1]=8./9.;
+        wi[2]=5./9.;
     }
     else if(Ng == 4){
         xi[0]=sqrt(3./7. - 2./7.*sqrt(6./5.));
@@ -126,6 +176,43 @@ double gaussianIntegrator2D(double (*func)(double,double),double ax,double bx,
         wi[2]=(322.+13.*sqrt(70.))/900.;
         wi[3]=(322.-13.*sqrt(70.))/900.;
         wi[4]=(322.-13.*sqrt(70.))/900.;
+    }
+    else if(Ng == 6){//from chap05_roots/legendre.out
+        xi[0]=-0.932469514203;
+        xi[1]=-0.661209386466;
+        xi[2]=-0.238619186083;
+        xi[3]=0.238619186083;
+        xi[4]=0.661209386466;
+        xi[5]=0.932469514203;
+
+        wi[0]=0.171324492379;
+        wi[1]=0.360761573048;
+        wi[2]=0.467913934573;
+        wi[3]=0.467913934573;
+        wi[4]=0.360761573048;
+        wi[5]=0.171324492379;
+    }
+    else if(Ng == 7){//from chap05_roots/legendre.out
+        xi[0]=-0.949107912343;
+        xi[1]=-0.741531185599;
+        xi[2]=-0.405845151377;
+        xi[3]=0.;
+        xi[4]=0.405845151377;
+        xi[5]=0.741531185599;
+        xi[6]=0.949107912343;
+
+        wi[0]=0.129484966169;
+        wi[1]=0.279705391489;
+        wi[2]=0.381830050505;
+        wi[3]=0.417959183673;
+        wi[4]=0.381830050505;
+        wi[5]=0.279705391489;
+        wi[6]=0.129484966169;
+    }
+    else if (Ng > 7){
+        std::cout << "gaussianIntegrator() error: roots and weights for Ng = "
+            <<Ng<<" are not defined. Returning 666."<<std::endl;
+        return 666.;
     }
     double dx = (double)(bx-ax)/N;
     double dy = (double)(by-ay)/N;
@@ -149,6 +236,3 @@ double gaussianIntegrator2D(double (*func)(double,double),double ax,double bx,
     }
     return sum;
 }
-
-
-

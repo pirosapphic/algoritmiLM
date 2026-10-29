@@ -1,7 +1,6 @@
 #ifndef functions_h
 #define functions_h
 
-#include<iostream>
 #include<cmath>
 
 double gaussianFunction(double x, double mean, double sigma);

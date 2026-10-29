@@ -1,7 +1,6 @@
 #ifndef integrators_h
 #define integrators_h
 
-#include<iostream>
 #include<cmath>
 
 double rectangleIntegrator(double (*func)(double), double a, double b, int N);
